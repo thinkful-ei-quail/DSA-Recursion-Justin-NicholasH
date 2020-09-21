@@ -6,3 +6,5 @@ const countingSheep = function (n) {
     return countingSheep(n - 1);
   }
 };
+
+countingSheep(5);
