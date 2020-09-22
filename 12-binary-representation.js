@@ -1,5 +1,5 @@
 const toBinary = function (n) {
-  if (n === 1) return "1";
+  if (n === 0) return "0";
   const endBit = n % 2;
   const remainderBit = Math.floor(n / 2);
   return toBinary(remainderBit) + endBit.toString();
@@ -9,6 +9,9 @@ console.log(toBinary(10));
 console.log(toBinary(5));
 console.log(toBinary(15));
 console.log(toBinary(235));
+console.log(toBinary(2));
+console.log(toBinary(1));
+console.log(toBinary(0));
 
 /*
 
