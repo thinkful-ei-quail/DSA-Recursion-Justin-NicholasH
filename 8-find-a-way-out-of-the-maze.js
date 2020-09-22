@@ -1,7 +1,7 @@
 let mySmallMaze = [
-  [' ', ' ', ' '],
-  [' ', '*', ' '],
-  [' ', ' ', 'e']
+  [" ", " ", " "],
+  [" ", "*", " "],
+  [" ", " ", "e"],
 ];
 /*
 let mySmallMaze = [
@@ -12,22 +12,70 @@ let mySmallMaze = [
 */
 
 let maze = [
-  [' ', ' ', ' ', '*', ' ', ' ', ' '],
-  ['*', '*', ' ', '*', ' ', '*', ' '],
-  [' ', ' ', ' ', ' ', ' ', ' ', ' '],
-  [' ', '*', '*', '*', '*', '*', ' '],
-  [' ', ' ', ' ', ' ', ' ', ' ', 'e']
+  [" ", " ", " ", "*", " ", " ", " "],
+  ["*", "*", " ", "*", " ", "*", " "],
+  [" ", " ", " ", " ", " ", " ", " "],
+  [" ", "*", "*", "*", "*", "*", " "],
+  [" ", " ", " ", " ", " ", " ", "e"],
 ];
 
-const mazeOneExit = (c) => {
-  if (c === 'e') return true;
-  if  (c === '*') return false;
+let anotherMaze = [
+  [" ", " ", " ", "*", " ", " ", " "],
+  ["*", "*", " ", "*", " ", "*", " "],
+  [" ", " ", " ", "*", " ", "*", " "],
+  [" ", "*", "*", "*", " ", "*", " "],
+  [" ", " ", " ", " ", " ", "*", "e"],
+];
 
-  const R = 0[+1];
-  const D = +1[0];
-  const L = 0[-1];
-  const U = -1[0];
-}
+let complicatedMaze = [
+  [" ", " ", " ", "*", " ", " ", " "],
+  ["*", "*", " ", "*", " ", "*", " "],
+  ["*", "*", " ", "*", " ", "*", " "],
+  ["*", "*", " ", "*", " ", "*", " "],
+  ["*", "*", " ", "*", " ", "*", " "],
+  [" ", " ", " ", "*", " ", "*", " "],
+  [" ", "*", "*", "*", " ", "*", " "],
+  [" ", " ", " ", " ", " ", "*", "e"],
+];
 
-let c = 0[0];
-console.log(mazeOneExit(c));
+const mazeOneExit = (maze, location = [0, 0], path = "") => {
+  let x = location[0];
+  let y = location[1];
+  //console.log(location);
+  //console.log(maze);
+
+  if (maze[x][y] === "e") return path;
+  else if (
+    (maze[x][y + 1] === " " || maze[x][y + 1] === "e") &&
+    path[path.length - 1] !== "L"
+  ) {
+    path += "R";
+    //console.log(path);
+    return mazeOneExit(maze, [x, y + 1], path);
+  } else if (
+    maze[x + 1] &&
+    (maze[x + 1][y] === " " || maze[x + 1][y] === "e") &&
+    path[path.length - 1] !== "U"
+  ) {
+    path += "D";
+    //console.log(path);
+    return mazeOneExit(maze, [x + 1, y], path);
+  } else if (
+    (maze[x][y - 1] === " " || maze[x][y - 1] === "e") &&
+    path[path.length - 1] !== "R"
+  ) {
+    path += "L";
+    //console.log(path);
+    return mazeOneExit(maze, [x, y - 1], path);
+  } else if (
+    maze[x - 1] &&
+    (maze[x - 1][y] === " " || maze[x - 1][y] === "e") &&
+    path[path.length - 1] !== "D"
+  ) {
+    path += "U";
+    //console.log(path);
+    return mazeOneExit(maze, [x - 1, y], path);
+  }
+};
+
+console.log(mazeOneExit(anotherMaze));
